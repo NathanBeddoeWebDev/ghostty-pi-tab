@@ -196,10 +196,11 @@ on run argv
             set targetTerm to focused terminal of targetTab
 
             -- The new tab can receive a user keystroke while it is being
-            -- created and focused. Clear any partial shell input, then submit
-            -- the command and newline in one paste-style event.
+            -- created and focused. Clear any partial shell input, paste the
+            -- command, then submit it with an explicit Return keystroke.
             send key "u" modifiers "control" to targetTerm
-            input text (commandText & "\n") to targetTerm
+            input text commandText to targetTerm
+            send key "enter" to targetTerm
         end tell
     on error errorMessage number errorNumber
         if markerWritten then
